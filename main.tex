@@ -1,0 +1,487 @@
+\documentclass{lecturenotes}
+
+\setcounter{tocdepth}{2}
+\setcitestyle{numbers,square}
+
+
+\title{LectureNotes Class Guide}
+\author{Ibrahim Nasser \\ ibrahim.nasser@fau.de}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+% ---------------------------------------------------------------------------
+\newpage
+\small
+\section{Overview}\label{sec:overview}
+The \texttt{lecturenotes} class is a custom \LaTeX{} style designed for clear, structured, and visually clean academic notes.  
+It preloads many packages and defines several custom macros so you can focus on writing content without repetitive boilerplate setup.
+
+This guide demonstrates every feature provided by \texttt{lecturenotes.cls}, including:
+\begin{itemize}
+\item All preloaded packages
+\item Example usage of each package
+\item All custom macros
+\item How to customize each feature by editing the class file
+\end{itemize}
+
+Throughout this manual, code examples are shown in shaded \texttt{codeblock} environments, followed by their rendered output.
+
+% ---------------------------------------------------------------------------
+\section{Core Document Utilities}
+
+\subsection{graphicx + float} 
+The \texttt{graphicx} \cite{ctan:graphicx} package provides commands for importing and scaling external images within a document, making it the standard tool for handling graphics in \LaTeX. The \texttt{float} \cite{ctan:float} package extends the default floating environment options by introducing the \texttt{[H]} specifier, which forces the element to appear exactly at the specified location rather than letting \LaTeX\ reposition it. Together, they allow precise control over both the inclusion and placement of figures. For example, see figure \ref{fig:graphicx}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\linewidth]{images/example.png}
+\caption{Example figure}
+\label{fig:graphicx}
+\end{figure}
+
+
+\subsection{booktabs}
+The \texttt{booktabs} \cite{ctan:booktabs} package provides commands for creating professional-quality tables by using well-spaced, stylistically consistent horizontal rules. Instead of the default \LaTeX\ table lines, it offers \verb|\toprule|, \verb|\midrule|, and \verb|\bottomrule| for cleaner design and improved readability, avoiding excessive or vertical lines for a more polished appearance. For example, see table \ref{table:booktabs}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+Item & Description \\
+\midrule
+Apple & A fruit \\
+Table & A piece of furniture \\
+\bottomrule
+\end{tabular}
+\caption{Booktabs table}
+\label{table:booktabs}
+\end{table}
+
+\subsection{parskip}
+The \texttt{parskip} \cite{ctan:parskip} package adds vertical space between paragraphs and removes first-line indentation. For example:
+
+This is the first paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
+
+This is the second paragraph. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
+
+This is the third paragraph. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+
+
+\newpage
+\subsection{geometry}
+The \texttt{geometry} \cite{ctan:geometry} package sets and adjusts page margins.
+
+
+\textbf{Default in \texttt{.cls}:}
+\begin{verbatim}
+    \RequirePackage[margin=0.5in]{geometry}
+\end{verbatim}
+
+Change \texttt{margin} to set different margins.
+
+\subsection{array}
+The \texttt{array} \cite{ctan:array} package provides advanced column formatting in tables. For example:
+\begin{codeblock}
+\begin{tabular}{>{\bfseries}l l}
+    Header1 & Header2 \\
+    Value1  & Value2
+\end{tabular}    
+\end{codeblock}
+
+\begin{tabular}{>{\bfseries}l l}
+Header1 & Header2 \\
+Value1 & Value2
+\end{tabular}
+
+\subsection{multicol}
+The \texttt{multicol} \cite{ctan:multicol} package creates multi-column text layouts. For example:
+
+\begin{multicols}{2}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
+
+\columnbreak
+
+Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie.
+\end{multicols}
+
+
+
+\subsection{titling}
+The \texttt{titling} \cite{ctan:titling} package customizes title spacing.
+
+\textbf{Default in \texttt{.cls}:}
+\begin{codeblock}
+\setlength{\droptitle}{-1in}
+\end{codeblock}
+This reduces space above the title.
+
+% ---------------------------------------------------------------------------
+
+\newpage
+\section{Mathematics, Logic, and Semantics}
+
+\subsection{amsmath}
+
+The \texttt{amsmath} \cite{ctan:amsmath} package extends \LaTeX's math capabilities. For example, the \texttt{align} environment allows multiple equations to be aligned at a chosen symbol:
+\begin{align}
+a^2 + b^2 &= c^2 \\
+e^{i\pi} + 1 &= 0
+\end{align}
+
+The \texttt{cases} environment formats systems of equations with a left brace:
+\[
+\begin{cases}
+x + y = 1 \\
+x - y = 3
+\end{cases}
+\]
+
+\subsection{amssymb}
+The \texttt{amssymb} package \cite{ctan:amsfonts} provides additional mathematical symbols beyond the default \LaTeX\ set, such as blackboard-bold letters, logic symbols, and operators:
+\[
+\mathbb{R}^n, \quad \mathbb{N}, \quad \nabla f(x), \quad \therefore x \text{ is optimal}, \quad \forall x \in X, \ \exists y \in Y
+\]
+
+\subsection{mathrsfs}
+The \texttt{mathrsfs} package \cite{ctan:mathrsfs} provides an elegant script font for mathematical expressions:
+\[
+\mathscr{F} : \mathbb{R} \to \mathbb{R}, \quad \mathscr{L} \text{ for a Lagrangian}, \quad \mathscr{P}(S) \text{ for a power set}
+\]
+
+
+\subsection{stmaryrd}
+The \texttt{stmaryrd} package \cite{ctan:stmaryrd} adds symbols such as double brackets for denoting semantic evaluation:
+\[
+\llbracket P \rrbracket = \text{true}, \quad \llbracket E \rrbracket_\rho \text{ for evaluation of } E \text{ in environment } \rho
+\]
+
+
+\subsection{mathpartir}
+The \texttt{mathpartir} package \cite{ctan:mathpartir} provides a concise syntax for typesetting inference rules:
+\[
+\inferrule{P \implies Q \\ P}{Q}
+\]
+
+
+\subsection{semantic}
+The \texttt{semantic} package \cite{ctan:semantic} supports notation for formal semantics, such as:
+\[
+\langle E, \sigma \rangle \Downarrow v
+\]
+for an expression \(E\) evaluating in environment \(\sigma\) to value \(v\), and:
+\[
+\langle C, \sigma \rangle \Rightarrow \sigma'
+\]
+for a command \(C\) transforming state \(\sigma\) into state \(\sigma'\).
+
+
+
+% ---------------------------------------------------------------------------
+\newpage
+\section{Code, Algorithms, and Styling}
+
+\subsection{tcolorbox + listingsutf8}
+The \texttt{tcolorbox} package \cite{ctan:tcolorbox} creates colored and framed content boxes, while \texttt{listingsutf8} \cite{ctan:listingsutf8} enables UTF-8 input in source code listings. These packages power the defined \texttt{commandnote} (\ref{sec:commandnote}), 
+\texttt{hltext} (\ref{sec:hltext}), 
+\texttt{inlinecode} (\ref{sec:inlinecode}), 
+and \texttt{codeblock} (\ref{sec:codeblock}).
+
+
+\subsection{algorithm + algorithmicx + algpseudocode}
+The \texttt{algorithm} package \cite{ctan:algorithms} provides a floating environment for algorithms. The \texttt{algorithmicx} \cite{ctan:algorithmicx} and \texttt{algpseudocode} \cite{ctan:algpseudocodex} packages offer structured pseudocode syntax with features such as line numbering and control structures.
+
+\begin{algorithm}
+\caption{Example}
+\begin{algorithmic}[1]
+\State $x \gets 0$
+\For{$i = 1$ to $10$}
+  \State $x \gets x + i$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{xcolor + soul}
+The \texttt{xcolor} package \cite{ctan:xcolor} provides advanced color management, and the \texttt{soul} package \cite{ctan:soul} adds text highlighting, underlining, and letter spacing. These packages power the \texttt{hltext} macro (\ref{sec:hltext}).
+
+
+\subsection{enumitem}
+The \texttt{enumitem} package \cite{ctan:enumitem} extends \LaTeX's list environments, allowing customization of numbering, labels, spacing, indentation, and inline formatting. Examples:
+
+Inline enumerated list with roman numerals:
+\begin{enumerate*}[label=(\roman*)]
+\item First
+\item Second
+\item Third
+\end{enumerate*}
+
+Block-style list with custom labels:
+\begin{enumerate}[label=\textbf{Step \arabic*:}]
+    \item Gather materials
+    \item Assemble components
+    \item Test the result
+\end{enumerate}
+
+
+\subsection{gensymb}
+The \texttt{gensymb} package \cite{ctan:gensymb} provides symbols not included in core \LaTeX, such as \texttt{degree} ($\degree$), \texttt{celsius} ($\celsius$), and \texttt{ohm} ($\ohm$).
+
+
+% ---------------------------------------------------------------------------
+
+\newpage
+\section{Bibliography and Hyperlinks}
+
+Hyperlinks and citations are fully supported through \texttt{hyperref} \cite{ctan:hyperref} and \texttt{natbib} \cite{ctan:natbib}.
+
+\subsection*{Examples}
+\begin{itemize}
+    \item URLs: \url{https://www.example.com} 
+    \item Email: \href{mailto:someone@example.com}{Email me}
+    \item In-text citation: \citet{goodfellow2016deep}
+    \item Parenthetical citation: \citep{goodfellow2016deep}  
+    \item Reference to a definition: see Def~\ref{def:sample}
+    \item Reference to a section: see Section~\ref{sec:overview}
+\end{itemize}
+
+\subsection*{Customization}
+To change link colors, edit in \texttt{lecturenotes.cls}:
+\begin{codeblock}
+\hypersetup{
+    colorlinks,
+    citecolor=teal,    % Color for citations
+    linkcolor=blue,    % Color for internal references
+    urlcolor=magenta   % Color for URLs
+}
+\end{codeblock}
+
+% ---------------------------------------------------------------------------
+
+\newpage
+\section{Custom Environments and Commands}
+
+Each macro is shown with example, output, and customization notes.
+
+\subsection{\textbackslash definition}
+\begin{codeblock}
+\definition{Sample concept}{This is the definition body}{def:sample}
+\end{codeblock}
+
+\definition{Sample concept}{This is the definition body}{def:sample}
+
+Customization:
+\begin{codeblock}
+\newcounter{definition}[subsection]
+\renewcommand{\thedefinition}{\thesubsection.\arabic{definition}}
+\end{codeblock}
+Change to:
+\begin{itemize}
+\item Global: \verb|\newcounter{definition}|
+\item Section: \verb|\newcounter{definition}[section]|
+\end{itemize}
+
+\subsection{\textbackslash refterm and \textbackslash linkterm}
+\begin{codeblock}
+\refterm{Important Term}{term:key}
+See \linkterm{this reference}{term:key}.
+\end{codeblock}
+
+\refterm{Important Term}{term:key} See \linkterm{this reference}{term:key}.
+
+\subsection{\textbackslash set}
+\begin{codeblock}
+$S = \set{a, b, c}$
+\end{codeblock}
+
+$S = \set{a, b, c}$
+
+\subsection{\textbackslash sint}
+\begin{codeblock}
+$\sint{E}$
+\end{codeblock}
+
+$\sint{E}$
+
+
+\subsection{\textbackslash minititle}
+\begin{codeblock}
+\minititle{Key idea}
+\end{codeblock}
+
+\minititle{Key idea}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. 
+Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
+
+\newpage
+\subsection{\textbackslash commandnote}\label{sec:commandnote}
+\begin{codeblock}
+\commandnote{This is a note.}
+\end{codeblock}
+
+\commandnote{This is a note.}
+
+\paragraph{Customization}
+The appearance of \texttt{commandnote} is defined in the \texttt{tcolorbox} options inside the class file.
+You can customize:
+\begin{itemize}
+    \item \textbf{Title text:} Change \texttt{title=Note} to another string.
+    \item \textbf{Colors:} Add \texttt{colback=\{color\}} for background and \texttt{colframe=\{color\}} for border.
+    \item \textbf{Style:} Modify options such as \texttt{arc} (corner roundness) or \texttt{boxrule} (border thickness).
+\end{itemize}
+
+\subsection{\textbackslash hltext}\label{sec:hltext}
+\begin{codeblock}
+This is \hltext{highlighted}.
+\end{codeblock}
+
+This is \hltext{highlighted}.
+
+\paragraph{Customization}
+The \texttt{hltext} macro uses the \texttt{soul} package for highlighting and sets its background with:
+\begin{codeblock}
+\sethlcolor{gray!10}
+\end{codeblock}
+To customize: Change the color name (e.g., \texttt{yellow}, \texttt{cyan}) or use xcolor mixes (e.g., \texttt{blue!20}).
+ 
+
+\subsection{codeblock environment}\label{sec:codeblock}
+
+\begin{verbatim}
+\begin{codeblock}
+print("Hello World")
+\end{codeblock}
+\end{verbatim}
+
+\begin{codeblock}
+print("Hello World")
+\end{codeblock}
+
+\paragraph{Customization}
+The \texttt{codeblock} environment is defined with \texttt{tcolorbox} (using the \texttt{listingsutf8} library) in the class file.  
+You can customize:
+\begin{itemize}
+    \item \textbf{Background and border colors:} Change \texttt{colback} and \texttt{colframe}.
+    \item \textbf{Border style:} Modify \texttt{boxrule} (thickness) and \texttt{arc} (corner roundness).
+    \item \textbf{Font style:} Adjust \texttt{basicstyle} (e.g., \verb|\ttfamily|, \verb|\small\ttfamily|).
+    \item \textbf{Line wrapping:} Toggle \texttt{breaklines} to enable or disable automatic wrapping.
+    \item \textbf{Listings options:} Add syntax highlighting rules or custom keyword styles in \texttt{listing options}.
+\end{itemize}
+
+\subsection{\textbackslash inlinecode}\label{sec:inlinecode}
+\begin{codeblock}
+Use \inlinecode{pip install package}
+\end{codeblock}
+
+Use \inlinecode{pip install package}
+
+\paragraph{Customization}
+The \texttt{inlinecode} macro wraps its content in \verb|\texttt| for a monospaced font and uses \texttt{colorbox} from the \texttt{xcolor} package for a background.
+You can customize:
+\begin{itemize}
+    \item \textbf{Background color:} Change the color in \verb|\colorbox{gray!10}{...}| to any \texttt{xcolor} value (e.g., \texttt{yellow!20}).
+    \item \textbf{Font style:} Replace \verb|\texttt| with \verb|\ttfamily\small| or another font family/size.
+\end{itemize}
+
+\newpage
+\section{Customizing Referencing and Citation Style}
+
+This document class uses the \texttt{natbib} package for citations.  
+The current configuration in \texttt{main.tex} is:
+\begin{verbatim}
+\setcitestyle{numbers,square}
+\bibliographystyle{IEEEtranN}
+\bibliography{refs}
+\end{verbatim}
+
+\subsection{Citation Styles}
+There are two main styles in \texttt{natbib}:
+
+\begin{itemize}
+    \item \textbf{Numeric styles}: Citations appear as numbers, e.g., \texttt{[1]}, \texttt{[2]}, matching the numbered list in the bibliography.  
+    Natbib-aware examples: \texttt{IEEEtranN}, \texttt{unsrtnat}.
+    \item \textbf{Author–year styles}: Citations show author name(s) and publication year, e.g., \texttt{(Goodfellow et al., 2016)}.  
+    Examples: \texttt{apalike}, \texttt{plainnat}.
+\end{itemize}
+
+\subsection{Changing the Style}
+\begin{enumerate}
+    \item Replace \texttt{IEEEtranN} with another supported \texttt{.bst} file name. Examples:
+    \begin{itemize}
+        \item \texttt{unsrtnat}: Numeric style in the order cited in the text.
+        \item \texttt{apalike}: APA-like author–year style.
+        \item \texttt{plainnat}: Author–year with natbib extensions.
+    \end{itemize}
+    \item To switch between styles, adjust the \verb|\setcitestyle| line:
+    \begin{itemize}
+        \item Numeric with square brackets: \verb|\setcitestyle{numbers,square}|
+        \item Author–year: remove the \verb|\setcitestyle| line or set \verb|\setcitestyle{authoryear}|
+    \end{itemize}
+    \item Keep the bibliography file reference as:
+    \begin{verbatim}
+\bibliography{refs}
+    \end{verbatim}
+    \item Compile using \textbf{BibTeX}:
+    \begin{verbatim}
+pdflatex main
+bibtex main
+pdflatex main
+pdflatex main
+    \end{verbatim}
+\end{enumerate}
+
+\subsection{Citation Commands in \texttt{natbib}}
+\begin{itemize}
+    \item \verb|\cite{key}|: Parenthetical citation.  
+    Author–year: \texttt{(Author, Year)}.  
+    Numeric: \texttt{[n]}.
+    \item \verb|\citep{key}|: Parenthetical citation.  
+    Author–year: \texttt{(Author, Year)}.  
+    Numeric: \texttt{[n]}.
+    \item \verb|\citet{key}|: Textual citation.  
+    Author–year: \texttt{Author (Year)}.  
+    Numeric: \texttt{Author [n]}.
+\end{itemize}
+
+\noindent
+\textit{Note:} Use \texttt{IEEEtranN} (not \texttt{ieeetr}) if you want natbib commands like \verb|\citet| to work correctly in numeric IEEE style. The plain \texttt{ieeetr} style is not natbib-aware and will produce \texttt{author?} placeholders.
+
+
+\minititle{Customization Examples:}
+\begin{itemize}
+    \item IEEE numeric with natbib (current):
+\begin{verbatim}
+\documentclass{lecturenotes}
+\setcitestyle{numbers,square}
+...
+\bibliographystyle{IEEEtranN}
+\bibliography{refs}
+\end{verbatim}
+    \item Numeric in citation order:
+\begin{verbatim}
+\documentclass{lecturenotes}
+\setcitestyle{numbers,square}
+...
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+\end{verbatim}
+    \item APA-like author–year:
+\begin{verbatim}
+\documentclass{lecturenotes}
+...
+\bibliographystyle{apalike}
+\bibliography{refs}
+\end{verbatim}
+\end{itemize}
+
+
+
+
+% ---------------------------------------------------------------------------
+\bibliographystyle{IEEEtranN}
+\bibliography{refs}
+
+\end{document}
