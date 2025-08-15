@@ -32,7 +32,7 @@ It preloads a set of packages and defines custom macros to streamline writing ac
    \tableofcontents
    \end{document}
    ```
-3. See `main.tex` for a full usage demonstration including:
+3. See `main.pdf` for a full usage demonstration.
 
 ## Dependencies
 All dependencies are standard CTAN packages:  
